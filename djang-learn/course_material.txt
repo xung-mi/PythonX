@@ -1,0 +1,2 @@
+https://github.com/academind/django-practical-guide-course-code
+slide: https://github.com/academind/django-practical-guide-course-code/tree/urls-views-zz-extra-files

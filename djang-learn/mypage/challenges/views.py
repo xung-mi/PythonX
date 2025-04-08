@@ -18,16 +18,31 @@ monthly_challenges = {
 }
 
 # Create your views here.
-
 def january(request):
     return HttpResponse("Tháng 1")
+
 
 def february(request):
     return HttpResponse("Tháng 2")
 
+
+def index(request):
+    list_items = ""
+    months = list(monthly_challenges.keys())
+    
+    for month in months:
+        capitalized_month = month.capitalize()
+        month_path = reverse("month-challenge", args=[month])
+        list_items += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
+        
+    response_data = f"<ul>{list_items}</ul>"
+    return HttpResponse(response_data)
+
+
 def monthly_challenge_by_number(request, month):
     month_text_keys = monthly_challenges.keys()
     months = list(month_text_keys)
+    
     if 1 <= month <= 12:
         redirect_month = months[month - 1]
     else:
@@ -35,7 +50,7 @@ def monthly_challenge_by_number(request, month):
     
     '''
         month-challenge is name defined in urls.py
-        redirect là gọi reverse ngầm
+        redirect là gọi reverse ngầm, cho phép sent request to another page
         để tránh hard-code cho:
             return HttpResponseRedirect("/challenges/" + redirect_month)
         thì dùng reverse
@@ -43,11 +58,13 @@ def monthly_challenge_by_number(request, month):
     redirect_path = reverse("month-challenge", args=[redirect_month]) # /challenge/ + january
     return HttpResponseRedirect(redirect_path)
 
+
 def monthly_challenge(request, month):
     try:
         text_month = monthly_challenges.get(month)
         response_data = f"<h1>{text_month}</h1>"
         return HttpResponse(text_month)
+    
     except:
         if text_month is None:
             return HttpResponseNotFound("<h1>This month is not supported</h1>")
