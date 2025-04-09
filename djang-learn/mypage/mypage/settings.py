@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "challenges",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -54,7 +55,11 @@ ROOT_URLCONF = "mypage.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "challenges" / "templates"],  # Add template path here
+        "DIRS": [
+            # BASE_DIR / "challenges"/ "templates"
+            BASE_DIR
+            / "templates"
+        ],  # Add template path here
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
