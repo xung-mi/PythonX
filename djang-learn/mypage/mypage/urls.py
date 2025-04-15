@@ -17,9 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from challenges import views as challenges_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("challenges/", include("challenges.urls"))# overall Django app should handle request sent to challenges, 
-                            # then, urls in challenges app will be used if it is reached
+    # Add this line to handle the root URL ("")
+    path(
+        "", challenges_views.index, name="home-index"
+    ),  # Point root URL to challenges' index view
+    path(
+        "challenges/", include("challenges.urls")
+    ),  # overall Django app should handle request sent to challenges,
+    # then, urls in challenges app will be used if it is reached
 ]
