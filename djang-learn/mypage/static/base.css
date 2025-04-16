@@ -1,0 +1,205 @@
+/* mypage/static/css/base.css */
+
+/* --- CSS Variables for easy theme customization --- */
+:root {
+    --primary-color: #007bff; /* Blue */
+    --secondary-color: #6c757d; /* Gray */
+    --success-color: #28a745; /* Green */
+    --danger-color: #dc3545; /* Red */
+    --warning-color: #ffc107; /* Yellow */
+    --info-color: #17a2b8; /* Teal */
+    --light-color: #f8f9fa; /* Light Gray */
+    --dark-color: #343a40; /* Dark Gray */
+    --white-color: #ffffff;
+    --text-color: #212529; /* Default text color */
+    --link-color: var(--primary-color);
+    --link-hover-color: #0056b3; /* Darker blue */
+    --border-color: #dee2e6;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --base-font-size: 1rem; /* Typically 16px */
+    --base-line-height: 1.6;
+    --container-max-width: 1140px;
+    --border-radius: 0.25rem; /* 4px */
+    --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* --- Basic Reset & Box Sizing --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Body Defaults --- */
+body {
+    font-family: var(--font-family-sans-serif);
+    font-size: var(--base-font-size);
+    line-height: var(--base-line-height);
+    color: var(--text-color);
+    background-color: var(--light-color); /* Light background for the whole page */
+    -webkit-font-smoothing: antialiased; /* Smoother fonts on Mac/iOS */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Main Container --- */
+/* You might wrap your main content in a div with class="container" in base.html */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* --- Headings --- */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.75rem;
+    font-weight: 500; /* Medium weight */
+    line-height: 1.3;
+    color: var(--dark-color); /* Darker color for headings */
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
+
+/* --- Paragraphs --- */
+p {
+    margin-bottom: 1rem;
+}
+
+/* --- Links --- */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    background-color: transparent;
+    transition: color 0.15s ease-in-out, text-decoration 0.15s ease-in-out;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+/* --- Lists --- */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem; /* Indentation for lists */
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* --- Basic Structure Elements (Example) --- */
+header {
+    background-color: var(--white-color);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px; /* Space below header */
+}
+
+header .container {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+main {
+    /* Styles for the main content area if needed */
+    /* Example: give content area a white background if body is colored */
+    /* background-color: var(--white-color); */
+    /* padding: 20px; */
+    /* border-radius: var(--border-radius); */
+    /* box-shadow: var(--box-shadow); */
+}
+
+footer {
+    margin-top: 30px;
+    padding: 1.5rem 0;
+    text-align: center; /* <-- Thêm dòng này để căn giữa */
+    font-size: 0.9em;
+    color: var(--secondary-color);
+    border-top: 1px solid var(--border-color);
+}
+
+/* --- Basic Form Styling (Optional) --- */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--white-color);
+    background-clip: padding-box;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+button,
+input[type="submit"],
+input[type="button"] {
+    display: inline-block;
+    font-weight: 400;
+    color: var(--white-color);
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: var(--border-radius);
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background-color: var(--link-hover-color);
+    border-color: var(--link-hover-color);
+    color: var(--white-color);
+    text-decoration: none;
+}
+
+button:focus,
+input[type="submit"]:focus,
+input[type="button"]:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+/* --- Utility Classes (Optional) --- */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.25rem !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+/* Add more margin/padding utilities as needed */
+

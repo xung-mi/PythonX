@@ -1,0 +1,5 @@
+Việc tạo thư mục challenges bên trong static là một quy ước tốt trong Django. Khi bạn chạy lệnh collectstatic 
+(thường dùng khi triển khai lên production), Django sẽ thu thập tất cả các file static từ các thư mục static 
+của từng app và đặt chúng vào một thư mục chung (STATIC_ROOT). 
+Việc có thêm thư mục con trùng tên với app (challenges/static/challenges/) giúp tránh xung đột tên file nếu
+ các app khác nhau có file static trùng tên (ví dụ, cả hai app đều có file style.css).

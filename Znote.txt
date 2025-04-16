@@ -1,0 +1,5 @@
+Lên kế hoạch cho dự án => Thêm URL và chế độ xem
+=>  Thêm mẫu đầu tiên => Nội dung mẫu & tệp tĩnh => Adding Images as Static Files
+=> Thêm Trang & Kiểu "Tất cả bài viết" =>  Linking the Pages => Adding the "Single Post" Page
+=> Adding Dummy Data to the "Views" File => Special Template Features & Syntax => Adding a Single Post Page
+=> Adding a 404 Page

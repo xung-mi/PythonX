@@ -1,12 +1,48 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block page_title %}My Challenges{% endblock %}</title>
+
+    {# Link đến base.css #}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {# Block để các template con chèn CSS riêng #}
+    {% block css_file %} {% endblock %}
   </head>
-  <body>
+  {% comment %} <body>
     <h1> All challenges </h1>
     {% block content %}{% endblock %}
   </body>
+
+  <body> {% endcomment %}
+
+    <header>
+        <div class="container">
+            {# Nội dung header chung, ví dụ logo, navigation #}
+            <h1><a href="/">My Awesome Site</a></h1>
+            {% block main_navigation %}{% endblock %}
+        </div>
+    </header>
+
+    <main class="container"> {# Sử dụng class container đã định nghĩa trong CSS #}
+        {# Block nội dung chính sẽ được các template con điền vào #}
+        {% block content %}
+        <p>Default content if not overridden.</p>
+        {% endblock %}
+    </main>
+
+    <footer style="text-align: center;">
+        <div class="container">
+            <p>&copy; {% now "Y" %} Your Company Name. All rights reserved.</p>
+        </div>
+    </footer>
+
+    {# Block để các template con chèn JavaScript riêng #}
+    {% block js_files %}{% endblock %}
+</body>
+
 </html>
