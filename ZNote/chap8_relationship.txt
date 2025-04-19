@@ -1,0 +1,46 @@
+Quan hệ giữa các model
+Mục tiêu:
+    Hiểu các loại quan hệ dữ liệu trong hệ quản trị cơ sở dữ liệu.
+    Học cách xây dựng và quản lý quan hệ giữa các model trong Django.
+
+Ví sao cần tách Model:
+    Giúp tái sử dụng dữ liệu
+    Dễ dàng mở rộng, chỉnh sửa, và quản lý dữ liệu
+
+Foreign Key:
+    là một mối quan hệ 1-nhiều giữa hai model
+    Khi bạn dùng ForeignKey, Django sẽ:
+        Tạo cột author_id trong bảng Book.
+        Mỗi giá trị author_id là ID của một bản ghi trong bảng Author.
+        Đây chính là con trỏ khóa ngoại.
+
+    các lựa chọn phổ biến của on_delete:
+        CASCADE         : Khi xóa Author, toàn bộ Book liên kết cũng bị xóa
+        SET_NULL        : Khi xóa Author, trường author trong Book sẽ được đặt thành NULL, cần null = True
+        PROTECT         : Django ngăn không cho xoá Author nếu đang có Book liên kết.
+        SET_DEFAULT     : Trường author sẽ được gán giá trị mặc định (nếu có).
+        DO_NOTHING      : Django không làm gì, bạn phải tự xử lý nếu có lỗi xảy ra.
+
+So sánh 2 lệnh manage.py makemigrations khác gì manage.py migrate
+    python manage.py makemigrations:
+        Tạo file ghi lại thay đổi của model => lưu vào các file migration mới trong thư mục migrations/.
+        sau khi sửa models.py
+
+    python manage.py migrate:
+        Áp dụng những thay đổi vào database thật Sau khi makemigrations
+
+
+Tạo & Truy vấn dữ liệu:
+    hp1 = Book(
+        title="Harry Potter 1",
+        rating=5,
+        is_bestselling=True,
+        slug="harry-potter-1",
+        author=jk  # liên kết qua ForeignKey
+    )
+    hp1.save()
+
+    Django sẽ tự động lấy ID của jk để lưu vào cột author_id trong bảng Book.
+
+
+
