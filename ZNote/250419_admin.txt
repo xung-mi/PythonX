@@ -1,0 +1,70 @@
+Django 19/04/2025
+Tìm hiểu và cấu hình Django Admin
+Sử dụng nó để quản lý dữ liệu chính của ứng dụng
+
+Django Admin
+	quản lý dữ liệu một cách trực quan mà không cần tự xây dựng UI.
+
+    urls.py
+	path('dmin/', admin.site.urls) 
+	=> là đường dẫn đến trang quản trị Django: /admin
+	=> Truy cập trang quản trị:
+		http://localhost:8000/admin
+	Ai có quyền truy cập?
+		Trang admin chỉ dành cho chủ website, dùng để quản lý dữ liệu
+		
+	Tạo tài khoản quản trị (superuser):
+		stop server
+		python manage.py createsuperuser
+			
+Đưa model vào Django admin 
+    django admin ko hiển thị tất cả model=> phải tự khai báo model cần quản lý trong admin
+    Cách thêm:
+        vào file admin.py của app rồi thêm. Ví dụ:
+            from django.contrib import admin
+            from .models import Book
+            admin.site.register(Book)
+
+Vấn đề slug:
+	Khi thêm sách mới, trường slug là bắt buộc
+	Nhưng bạn đã ghi đè save() để tự động sinh slug:
+		- Người dùng không cần nhập slug.
+		- Nhưng admin vẫn yêu cầu → gây bất tiện
+	
+Xử lý trường slug trong Django Admin
+	Cần đặt tự sinh slug trong save() và set up thêm các field sau:
+	Cách 1: blank=True trong model
+		slug = models.SlugField(blank=True, ...)
+		=> cho phép để trống và submit
+
+	Cách 2: editable=False
+		slug = models.SlugField(editable=False, ...)
+		=> Ẩn luôn trường slug khỏi form admin
+
+	→ Nếu cần tùy chỉnh sâu hơn Django Admin => dùng ModelAdmin
+
+Tùy chỉnh Django Admin bằng ModelAdmin
+	Dùng nếu muốn:
+		hiển thị slug trong admin form để người dùng thấy và chỉnh sửa
+		Muốn slug được tự động điền trước khi gõ title
+		Bỏ hàm save() chỉ để gán slug
+	
+	Các bước:
+		1. Tạo class tùy chỉnh trong admin.py
+			class BookAdmin(admin.ModelAdmin):
+				# Các tùy chỉnh sẽ khai báo ở đây
+				# Hiển thị nhưng không cho sửa các trường
+				readonly_fields = ("slug",)
+
+				# Tự động sinh giá trị slug từ title khi điền form
+				# Django sẽ dùng slugify(title) để tạo slug tạm thời khi điền form.
+				prepopulated_fields = {"slug": ("title",)}
+		2. Đăng ký model kèm class admin:
+			admin.site.register(Book, BookAdmin)
+	
+
+
+
+
+    
+
