@@ -14,6 +14,9 @@ Foreign Key:
         Mỗi giá trị author_id là ID của một bản ghi trong bảng Author.
         Đây chính là con trỏ khóa ngoại.
 
+    on_delete: 
+        - xác định hành vi của đối tượng liên quan khi đối tượng được tham chiếu bị xóa
+        - Nếu một Book tham chiếu đến một Author, thì on_delete quy định điều gì sẽ xảy ra với Book khi Author đó bị xóa.
     các lựa chọn phổ biến của on_delete:
         CASCADE         : Khi xóa Author, toàn bộ Book liên kết cũng bị xóa
         SET_NULL        : Khi xóa Author, trường author trong Book sẽ được đặt thành NULL, cần null = True
@@ -42,5 +45,69 @@ Tạo & Truy vấn dữ liệu:
 
     Django sẽ tự động lấy ID của jk để lưu vào cột author_id trong bảng Book.
 
+Circular Relations
+    - Hai mô hình có quan hệ tuần hoàn
+    - Ví dụ:
+        class Product(models.Model):
+            # ... other fields ...
+            last_buyer = models.ForeignKey('User')
 
+        class User(models.Model):
+            # ... other fields ...
+            created_products = models.ManyToManyField('Product')
+    - Vấn đề: Mô hình Product có quan hệ ForeignKey với mô hình User và ngược lại, 
+    mô hình User có quan hệ ManyToManyField với mô hình Product. 
+    Đây là một quan hệ vòng, vì cả hai mô hình phụ thuộc vào nhau.
+
+    -  Giải pháp: Sử dụng chuỗi tên mô hình thay vì tham chiếu trực tiếp để tránh sự phụ thuộc vòng.
+
+
+Lazy Relations:
+    - Cho phép Django xử lý các mối quan hệ với mô hình khác trong ứng dụng của bạn hoặc các ứng dụng khác mà không cần khai báo trước.
+
+Self-Referencing:
+    - Sử dụng 'self' để tạo mối quan hệ với chính mô hình đó.
+
+
+
+
+
+
+giải thích: Circular Relations & Lazy Relations
+Sometimes, you might have two models that depend on each other - i.e. you end up with a circular relationship.
+
+Or you have a model that has a relation with itself.
+
+Or you have a model that should have a relation with some built-in model (i.e. built into Django) or a model defined in another application.
+
+Below, you find examples for all three cases that include Django's solution for these kinds of "problems": Lazy relationships. You can also check out the official docs in addition.
+
+1) Two models that have a circular relationship
+
+class Product(models.Model):
+  # ... other fields ...
+  last_buyer = models.ForeignKey('User')
+  
+class User(models.Model):
+  # ... other fields ...
+  created_products = models.ManyToManyField('Product')
+In this example, we have multiple relationships between the same two models. Hence we might need to define them in both models. By using the model name as a string instead of a direct reference, Django is able to resolve such dependencies.
+
+2) Relation with the same model
+
+class User(models.Model):
+  # ... other fields ...
+  friends = models.ManyToManyField('self') 
+The special self keyword (used as a string value) tells Django that it should form a relationship with (other) instances of the same model.
+
+3) Relationships with other apps and their models (built-in or custom apps)
+
+class Review(models.Model):
+  # ... other fields ...
+  product = models.ForeignKey('store.Product') # '<appname>.<modelname>'
+You can reference models defined in other Django apps (no matter if created by you, via python manage.py startapp <appname> or if it's a built-in or third-party app) by using the app name and then the name of the model inside the app.
+
+
+
+https://www.facebook.com/share/p/191pR64wsb/
 
