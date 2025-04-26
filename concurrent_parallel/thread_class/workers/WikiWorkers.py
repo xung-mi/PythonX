@@ -8,7 +8,7 @@ class WikiWorker:
 
     @staticmethod
     def _extract_companies(page_html):
-        soup = BeautifulSoup(page_html)  # , "lxml")
+        soup = BeautifulSoup(page_html, "lxml")
         table = soup.find(id="constituents")
         table_rows = table.find_all("tr")
         for table_row in table_rows[1:]:
@@ -21,7 +21,6 @@ class WikiWorker:
             print(f"Failed to fetch {self._url}")
             return []
 
-        print(response.text)
         yield from self._extract_companies(response.text)  # yield
 
 
@@ -29,5 +28,9 @@ if __name__ == "__main__":
     worker = WikiWorker()
     for symbol in worker.get_sp_500_companies():
         print(symbol)
-        
+        if symbol == "MMM":
+            break
+
         # //*[@id="nimbus-app"]/section/section/section/article/section[1]/div[2]/div[1]/section/div/section/div[1]/div[1]/span
+
+        # //*[@id="constituents"]/tbody/tr[1]/td[1]/a
